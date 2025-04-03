@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgresql:
+    image: postgres:13.5
+    container_name: opex-postgresql
+    restart: always
+    environment:
+      POSTGRES_USER: ravel28
+      POSTGRES_PASSWORD: 1sampai9coba
+      POSTGRES_DB: ksb_db
+    networks:
+      - opexnet
+    ports:
+      - '5428:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  ksb_backend:
+    image: laravel-portfolio-backend-app:latest
+    container_name: ksb-laravel
+    restart: always
+    depends_on:
+      - postgresql
+    networks:
+      - opexnet
+    ports:
+      - '8018:3000'
+    volumes:
+      - upload_excel:/app/uploads/excel
+      - upload_pdf:/app/uploads/pdf
+    environment:
+      APPLICATION_NAME: kitasudahbisa-service
+      APPLICATION_PORT: 3000
+      NODE_ENV: dev
+      DATABASE_URL: postgresql://ravel29:1sampai9coba@147.93.105.35:5428/ksb_db?schema=public
+
+networks:
+  laravel_network:///
+    driver: bridge
+
+volumes:
+  db_data:
