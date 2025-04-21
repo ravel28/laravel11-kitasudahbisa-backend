@@ -26,6 +26,6 @@ class UserResource extends JsonResource
             'division_id'       => $this->division_id,
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
-        ];
+            'token' => $this->when($this->token !== null, $this->token),        ];
     }
 }

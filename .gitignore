@@ -18,3 +18,8 @@ yarn-error.log
 /.idea
 /.vscode
 config/database.php
+
+# Docker Setting
+Alpine.dockerfile
+composer.lock
+docker.compose.yaml

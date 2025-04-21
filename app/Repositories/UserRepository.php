@@ -47,12 +47,12 @@ class UserRepository implements UserRepositoryInterface
                                     ->first();
             
             
-            if($checkUser){
-                Hash::check($inputPassword, $checkUser->password) ? $result = $checkUser : abort(404,'Password not valid !');
+            if($checkUser && Hash::check($inputPassword, $checkUser->password)){
+                $checkUser['token'] = $checkUser->createToken('API Token')->plainTextToken;
             } else {
                 abort(404,'Email not found !');
             }
-            return $result;
+            return $checkUser;
         } catch(Throwable $e) {
             ApiResponseClass::throw($e);
         }
