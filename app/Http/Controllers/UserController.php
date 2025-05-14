@@ -72,9 +72,10 @@ class UserController extends Controller
         try{
             $data = [
                 'email'         => $request->input('email'),
+                'username'      => $request->input('username'),
                 'name'          => $request->input('name'),
                 'motto'         => $request->input('motto'),
-                'age'           => $request->input('age'),
+                'birthdate'     => $request->input('birthdate'),
                 'division_id'   => $request->input('division_id'),
                 'password'      => Hash::make($request->input('password'))
             ];

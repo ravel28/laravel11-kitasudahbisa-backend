@@ -44,6 +44,7 @@ class UserRepository implements UserRepositoryInterface
             $username       = $data['user'] ?? '';
             $inputPassword  = $data['password'] ?? '';
             $checkUser      = User::whereRaw('email = ?',[$username])
+                                    ->join('divisions','users.division_id','=','divisions.id')
                                     ->first();
             
             
@@ -73,10 +74,11 @@ class UserRepository implements UserRepositoryInterface
      public function createUser(array $data) {
         try{
             $create_data = User::create([
+                'username'          => $data['username'], 
                 'name'              => $data['name'], 
                 'email'             => $data['email'],
                 'motto'             => $data['motto'],
-                'age'               => $data['age'],
+                'birthdate'         => $data['birthdate'],
                 'division_id'       => $data['division_id'],
                 'email_verified_at' => now(),
                 'password'          => $data['password'],
