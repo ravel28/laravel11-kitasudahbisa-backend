@@ -14,10 +14,11 @@ class UserRepository implements UserRepositoryInterface
         try {
             $take   = $query['take'];
             $page   = $query['page'] ?? 1;
-            $user   = User::orderby('divisions.id','asc')
-                            ->orderby('users.name','asc')
-                            ->join('divisions','users.division_id','=','divisions.id')
-                            ->paginate($take);
+            $user = User::select('users.*')
+                        ->orderby('divisions.id','asc')
+                        ->orderby('users.name','asc')
+                        ->join('divisions','users.division_id','=','divisions.id')
+                        ->paginate($take);
             $total  = User::all()->count();
 
             if(count($user) < 1) abort(404, "User data is null or not found !");
