@@ -14,7 +14,7 @@ class UserRepository implements UserRepositoryInterface
         try {
             $take   = $query['take'];
             $page   = $query['page'] ?? 1;
-            $user = User::select('users.*')
+            $user = User::select('users.*', 'divisions.division as division_name')
                         ->orderby('divisions.id','asc')
                         ->orderby('users.name','asc')
                         ->join('divisions','users.division_id','=','divisions.id')
