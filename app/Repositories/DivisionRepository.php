@@ -48,6 +48,17 @@ class DivisionRepository implements DivisionRepositoryInterface
         }
     }
 
+    public function detailDivision(int $id){
+        try {
+            $checkDivision = Division::whereRaw('id = ?',$id)
+                                ->first();
+            if(!$checkDivision) abort(404, "Divison is not found !");
+            return $checkDivision;
+        } catch(Throwable $e) {
+            ApiResponseClass::throw($e);
+        }
+    }
+
     public function updateDivision(int $id,array $data) {
         try{
             $update_data = Division::whereRaw('id = ?',$id)->update([

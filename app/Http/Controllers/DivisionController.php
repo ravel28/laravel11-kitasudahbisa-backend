@@ -55,6 +55,18 @@ class DivisionController extends Controller
             ApiResponseClass::throw($e);
         }
     }
+
+    public function detailDivision(int $id){
+        try{
+            $result     = $this->divisionRepositoryInterface->detailDivision($id);
+            $meta       = [];
+            $status_code= 200;
+            
+            return ApiResponseClass::sendResponse(UserResource::make($result),$meta,$status_code);
+        } catch(Exception $e) {
+            ApiResponseClass::throw($e, 'My custom error message',400);
+        }
+    }
     
     public function updateDivision(int $id,Request $request) {
         try{
@@ -62,7 +74,8 @@ class DivisionController extends Controller
                 'division' => $request->input('division'),
             ];
 
-            $result     = $this->divisionRepositoryInterface->updateDivision($id,$data);
+            $updated    = $this->divisionRepositoryInterface->updateDivision($id,$data);
+            $result     = $this->divisionRepositoryInterface->detailDivision($id);
             $meta       = [];
             $status_code= 200;
 

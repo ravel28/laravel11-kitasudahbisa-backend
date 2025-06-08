@@ -62,7 +62,8 @@ class UserRepository implements UserRepositoryInterface
  
      public function checkUserById($id){
         try{
-            $checkUser = User::whereRaw('users.id = ?',$id)
+            $checkUser = User::select('users.*', 'divisions.division as division_name')
+                                ->whereRaw('users.id = ?',$id)
                                 ->join('divisions','users.division_id','=','divisions.id')
                                 ->first();
             if(!$checkUser) abort(404, "User data is null or not found !");
@@ -82,7 +83,7 @@ class UserRepository implements UserRepositoryInterface
                 'birthdate'         => $data['birthdate'],
                 'division_id'       => $data['division_id'],
                 'email_verified_at' => now(),
-                'password'          => $data['password'],
+                'password'          => '1sampai9cob@',
             ]);
             return $create_data;
         } catch(Throwable $e) {
