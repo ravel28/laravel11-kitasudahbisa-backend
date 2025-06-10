@@ -34,7 +34,6 @@ class DivisionController extends Controller
             $status_code= 200;
 
             return ApiResponseClass::sendResponse(DivisionResource::collection($data['items']),$meta,$status_code);
-            return 'kok bisa';
         } catch(Throwable $e) {
             ApiResponseClass::throw($e);
         }

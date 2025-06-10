@@ -77,7 +77,6 @@ class UserController extends Controller
                 'motto'         => $request->input('motto'),
                 'birthdate'     => $request->input('birthdate'),
                 'division_id'   => $request->input('division_id'),
-                'password'      => Hash::make($request->input('password'))
             ];
             $create = $this->userRepositoryInterface->createUser($data);
             $output         = new \Symfony\Component\Console\Output\ConsoleOutput();
@@ -97,10 +96,11 @@ class UserController extends Controller
     public function updateUser(int $id, Request $request) {
         try{    
             $data = [
-                'name' => $request->input('name'),
-                'motto' => $request->input('motto'),
-                'age' => $request->input('age'),
-                'password' => Hash::make($request->input('password'))
+                'name'          => $request->input('name'),
+                'email'         => $request->input('email'),
+                'motto'         => $request->input('motto'),
+                'birthdate'     => $request->input('birthdate'),
+                'division_id'   => $request->input('division_id'),
             ];
 
             //Note :: result this query is 1 or undefined, i will make search again data by id

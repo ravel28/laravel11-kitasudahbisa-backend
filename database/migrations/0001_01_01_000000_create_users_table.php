@@ -11,6 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('positions', function (Blueprint $table) {
+            $table->id();
+            $table->string('position');
+            $table->string('level');
+            $table->timestamps();
+        });
+
         Schema::create('divisions', function (Blueprint $table) {
             $table->id();
             $table->string('division');
@@ -28,8 +35,10 @@ return new class extends Migration
             $table->string('password');
             $table->timestamps();
             $table->unsignedBigInteger('division_id');
+            $table->unsignedBigInteger('position_id');
 
             $table->foreign('division_id')->references('id')->on('divisions');
+            $table->foreign('position_id')->references('id')->on('positions');
         });
         
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -53,6 +62,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('positions');
         Schema::dropIfExists('divisions');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');

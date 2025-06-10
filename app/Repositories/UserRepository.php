@@ -94,11 +94,29 @@ class UserRepository implements UserRepositoryInterface
      public function updateUser(int $id, array $data) {
         try{
             $update_data = User::whereRaw('id = ?',$id)->update([
-                'name'          => $data['name'], 
-                'motto'         => $data['motto'],
-                'age'           => $data['age'],
-                'password'      => $data['password'],
-                'division_id'   => $data['division_id'],
+                'name'              => $data['name'], 
+                'email'             => $data['email'],
+                'motto'             => $data['motto'],
+                'birthdate'         => $data['birthdate'],
+                'email_verified_at' => now(),
+                'division_id'       => $data['division_id'],
+            ]);
+            
+            return $update_data;
+        } catch(Throwable $e) {
+            ApiResponseClass::throw($e);
+        }
+     }
+
+     public function updateAuthUser(int $id, array $data) {
+        try{
+            $update_data = User::whereRaw('id = ?',$id)->update([
+                'name'              => $data['name'], 
+                'email'             => $data['email'],
+                'motto'             => $data['motto'],
+                'birthdate'         => $data['birthdate'],
+                'email_verified_at' => now(),
+                'division_id'       => $data['division_id'],
             ]);
             
             return $update_data;
