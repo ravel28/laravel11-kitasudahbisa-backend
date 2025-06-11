@@ -24,10 +24,12 @@ class UserResource extends JsonResource
             'email_verified_at' => $this->email_verified_at,
             'remember_token'    => $this->age,
             'division_name'     => $this->division_name,
+            'position_name'     => $this->position_name,
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
             'token'             => $this->when($this->token !== null, $this->token),
             'division_id'        => $this->division_id,
+            'position_id'        => $this->position_id,
         ];
     }
 }

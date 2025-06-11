@@ -19,6 +19,7 @@ class PositionResource extends JsonResource
             'id'                => $this->id,
             'position'          => $this->position,
             'level'             => $this->level,
+            'total_user'        => $this->when($this->total_users !== null, $this->total_users),
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
         ];

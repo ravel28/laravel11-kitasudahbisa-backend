@@ -77,6 +77,7 @@ class UserController extends Controller
                 'motto'         => $request->input('motto'),
                 'birthdate'     => $request->input('birthdate'),
                 'division_id'   => $request->input('division_id'),
+                'position_id'   => $request->input('position_id'),
             ];
             $create = $this->userRepositoryInterface->createUser($data);
             $output         = new \Symfony\Component\Console\Output\ConsoleOutput();
@@ -101,6 +102,7 @@ class UserController extends Controller
                 'motto'         => $request->input('motto'),
                 'birthdate'     => $request->input('birthdate'),
                 'division_id'   => $request->input('division_id'),
+                'position_id'   => $request->input('position_id'),
             ];
 
             //Note :: result this query is 1 or undefined, i will make search again data by id

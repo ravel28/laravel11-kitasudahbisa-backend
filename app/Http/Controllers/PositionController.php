@@ -75,9 +75,9 @@ class PositionController extends Controller
         }
     }
 
-    public function deleteDivision(int $id) {
+    public function deletePosition(int $id) {
         try{
-            $result     = $this->positionRepositoryInterface->deleteDivision($id);
+            $result     = $this->positionRepositoryInterface->deletePosition($id);
             $meta       = [];
             $status_code= 204;
 

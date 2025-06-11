@@ -14,10 +14,11 @@ class UserRepository implements UserRepositoryInterface
         try {
             $take   = $query['take'];
             $page   = $query['page'] ?? 1;
-            $user = User::select('users.*', 'divisions.division as division_name')
-                        ->orderby('divisions.id','asc')
+            $user = User::select('users.*', 'divisions.division as division_name', 'positions.position as position_name')
+                        ->orderby('positions.level','asc')
                         ->orderby('users.name','asc')
                         ->join('divisions','users.division_id','=','divisions.id')
+                        ->join('positions','users.position_id','=','positions.id')
                         ->paginate($take);
             $total  = User::all()->count();
 
@@ -62,9 +63,10 @@ class UserRepository implements UserRepositoryInterface
  
      public function checkUserById($id){
         try{
-            $checkUser = User::select('users.*', 'divisions.division as division_name')
+            $checkUser = User::select('users.*', 'divisions.division as division_name', 'positions.position as position_name')
                                 ->whereRaw('users.id = ?',$id)
                                 ->join('divisions','users.division_id','=','divisions.id')
+                                ->join('positions','users.position_id','=','positions.id')
                                 ->first();
             if(!$checkUser) abort(404, "User data is null or not found !");
             return $checkUser;
@@ -82,6 +84,7 @@ class UserRepository implements UserRepositoryInterface
                 'motto'             => $data['motto'],
                 'birthdate'         => $data['birthdate'],
                 'division_id'       => $data['division_id'],
+                'position_id'       => $data['position_id'],
                 'email_verified_at' => now(),
                 'password'          => '1sampai9cob@',
             ]);
@@ -100,6 +103,7 @@ class UserRepository implements UserRepositoryInterface
                 'birthdate'         => $data['birthdate'],
                 'email_verified_at' => now(),
                 'division_id'       => $data['division_id'],
+                'position_id'       => $data['position_id'],
             ]);
             
             return $update_data;

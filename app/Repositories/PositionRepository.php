@@ -14,7 +14,8 @@ class PositionRepository implements PositionRepositoryInterface
         try {
             $take       = $query['take'];
             $page       = $query['page'] ?? 1;
-            $position   = Position::orderby('positions.level','asc')
+            $position   = DB::table('user_count_by_position')
+                                    // ->orderby('user_count_by_position.level','asc')
                                     ->paginate($take);
             $total      = Position::all()->count();
 
